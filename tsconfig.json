@@ -1,3 +1,7 @@
 {
-  "extends": "astro/tsconfigs/strict"
+  "compilerOptions": {
+    "verbatimModuleSyntax": true
+  },
+  "extends": "astro/tsconfigs/base",
+  "include": ["env.d.ts"]
 }

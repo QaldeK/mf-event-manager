@@ -1,22 +1,24 @@
 ---
-import TimePicker from "./timePicker.astro";
+// import TimePicker from "./timePicker.astro";
 ---
 
-<template x-if="$store.modalEvent.show" x-cloak>
-  <div x-ignore ax-load="visible" x-data="createEvent">
+<template
+  x-if="$store.modalEvent.show"
+  x-cloak>
+  <div
+    x-ignore
+    ax-load="visible"
+    x-data="createEvent">
     <div
       class="fixed z-10 inset-0 overflow-y-auto"
       aria-labelledby="modal-title"
       role="dialog"
-      aria-modal="true"
-    >
+      aria-modal="true">
       <div
-        class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
-      >
+        class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <div
           class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
-          aria-hidden="true"
-        >
+          aria-hidden="true">
         </div>
 
         <span
@@ -26,8 +28,7 @@ import TimePicker from "./timePicker.astro";
         </span>
 
         <div
-          class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
-        >
+          class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
           <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
             <div>
               <form x-on:submit.prevent="submit">
@@ -46,7 +47,9 @@ import TimePicker from "./timePicker.astro";
                   />
                 </div>
                 <div>
-                  <label for="date" class="block font-medium text-gray-700"
+                  <label
+                    for="date"
+                    class="block font-medium text-gray-700"
                     >Date</label
                   >
                   <input
@@ -70,7 +73,9 @@ import TimePicker from "./timePicker.astro";
                   />
                 </div>
                 <div>
-                  <label for="end_time" class="block font-medium text-gray-700"
+                  <label
+                    for="end_time"
+                    class="block font-medium text-gray-700"
                     >Heure de fin</label
                   >
                   <input
@@ -89,8 +94,7 @@ import TimePicker from "./timePicker.astro";
                       class="flex items-center space-x-2 px-4 py-1 rounded-md bg-gray-200 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500"
                       :class="{ 'bg-blue-500 text-white hover:bg-blue-600': category.isChecked }"
                       @click="toggleCategory(index)"
-                      :id="category.name"
-                    >
+                      :id="category.name">
                       <input
                         type="checkbox"
                         class="form-checkbox h-5 w-5 text-gray-600 rounded"
@@ -98,14 +102,19 @@ import TimePicker from "./timePicker.astro";
                         :id="category.value"
                         :name="category.value"
                       />
-                      <span class="text-gray-700" x-text="category.name"></span>
+                      <span
+                        class="text-gray-700"
+                        x-text="category.name"
+                      ></span>
                     </button>
                   </template>
                 </div>
                 <!--/ Bouton checkbox Categories  -->
                 <div class="flex gap-4">
                   <div>
-                    <label for="confirmed" class="font-medium text-gray-700"
+                    <label
+                      for="confirmed"
+                      class="font-medium text-gray-700"
                       >Confirmé</label
                     >
                     <input
@@ -117,7 +126,9 @@ import TimePicker from "./timePicker.astro";
                     />
                   </div>
                   <div>
-                    <label for="published" class="font-medium text-gray-700"
+                    <label
+                      for="published"
+                      class="font-medium text-gray-700"
                       >Publié</label
                     >
                     <input
@@ -132,7 +143,8 @@ import TimePicker from "./timePicker.astro";
                 <div>
                   <label
                     for="description"
-                    class="block font-medium text-gray-700">Description</label
+                    class="block font-medium text-gray-700"
+                    >Description</label
                   >
                   <textarea
                     x-model="description"
@@ -149,11 +161,13 @@ import TimePicker from "./timePicker.astro";
                   <button
                     type="button"
                     class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-                    @click="$store.modalEvent.toggle()"
-                  >
+                    @click="$store.modalEvent.toggle()">
                     Annuler
                   </button>
-                  <div x-text="errorMessage" class="text-red-500 mt-2"></div>
+                  <div
+                    x-text="errorMessage"
+                    class="text-red-500 mt-2">
+                  </div>
                 </div>
               </form>
             </div>
@@ -165,6 +179,8 @@ import TimePicker from "./timePicker.astro";
 </template>
 
 <script>
+  import Alpine from "alpinejs";
+
   Alpine.data("createEvent", () => ({
     eventTitle: "film",
     date: "",
@@ -204,7 +220,7 @@ import TimePicker from "./timePicker.astro";
       {name: "Discussion", value: "discussion", isChecked: false},
     ],
 
-    toggleCategory(index) {
+    toggleCategory(index: string | number) {
       this.categories[index].isChecked = !this.categories[index].isChecked;
     },
 
@@ -214,7 +230,7 @@ import TimePicker from "./timePicker.astro";
     image: null,
     errorMessage: "",
 
-    submit(event) {
+    submit(event: {target: HTMLFormElement | undefined}) {
       if (!this.categories.some((category) => category.isChecked)) {
         this.errorMessage = "Veuillez sélectionner au moins une catégorie.";
       } else {
