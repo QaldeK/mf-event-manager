@@ -1,4 +1,6 @@
 ---
+import initGlobalScripts from '../scripts/global.js'
+
 interface Props {
 	title: string;
 }
@@ -7,10 +9,10 @@ const { title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
+		<meta name="description" content="Gestionnaire d'événement pour la MOFO" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
@@ -34,7 +36,7 @@ const { title } = Astro.props;
 	}
 	html {
 		font-family: system-ui, sans-serif;
-		background: #13151a;
+		background: #ececec;
 		background-size: 224px;
 	}
 	code {
@@ -49,3 +51,5 @@ const { title } = Astro.props;
 			monospace;
 	}
 </style>
+
+<script src="../scripts/global.js"></script>

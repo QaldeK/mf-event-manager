@@ -1,0 +1,63 @@
+---
+import Layout from "../layouts/Layout.astro";
+const { cookies, redirect } = Astro;
+const accessToken = cookies.get("sb-access-token");
+const refreshToken = cookies.get("sb-refresh-token");
+---
+
+<script>
+  document.addEventListener('alpine:init', () => {
+    Alpine.data('submitForm', () => ({
+      submitForm(form) {
+        fetch(form.action, {
+          method: form.method,
+          body: new FormData(form),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error('Erreur lors de la requête');
+            }
+            return response.json();
+          })
+          .then((data) => {
+            window.dispatchEvent(new CustomEvent('notification', { detail: data.success || data.error }));
+            form.reset();
+          })
+          .catch((error) => {
+            window.dispatchEvent(new CustomEvent('notification', { detail: 'Une erreur s\'est produite.' }));
+          });
+      }
+    }));
+
+      Alpine.data('notification', () => ({
+      message: '',
+    }));
+  });
+
+</script>
+
+<Layout title="Créer un événement">
+  <div class="flex justify-center items-center h-screen">
+    <div class="bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4">
+      <h1 class="text-3xl mb-4">Créer un événement</h1>
+      <form x-data="submitForm" class="space-y-4" id="eventForm" action="/api/formtest" method="post" x-on:submit.prevent="submitForm(form)">
+        <div class="space-y-2">
+          <label class="block text-gray-700 text-lg font-bold mb-2" for="name">Nom</label>
+          <input class="border border-gray-300 rounded p-2 w-full" type="text" name="name" id="name" />
+        </div>
+        <div class="space-y-2">
+          <label class="block text-gray-700 text-lg font-bold mb-2" for="email">Email</label>
+          <input class="border border-gray-300 rounded p-2 w-full" type="email" name="email" id="email" />
+        </div>
+        <div class="space-y-2">
+          <label class="block text-gray-700 text-lg font-bold mb-2" for="message">Message</label>
+          <textarea class="border border-gray-300 rounded p-2 w-full" name="message" id="message"></textarea>
+        </div>
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Créer l'événement</button>
+        <div x-data="{notification: ''}" x-text="notification" x-show="notification" x-transition x-cloak class="mt-4 text-green-500"></div>
+      </form>
+    </div>
+  </div>
+
+ 
+</Layout>

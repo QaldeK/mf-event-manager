@@ -1,0 +1,43 @@
+<div x-data="{ selectedValues: [] }">
+  <div>
+    <h2>Select Values</h2>
+    <div class="flex flex-wrap">
+      <button
+        x-bind:class="{ 'bg-blue-500 text-white': selectedValues.includes('value1'), 'bg-gray-200 text-gray-700': !selectedValues.includes('value1') }"
+        class="mx-1 my-1 px-4 py-2 rounded-full transition duration-300"
+        @click="toggleValue('value1')"
+      >
+        Apéro
+      </button>
+      <button
+        x-bind:class="{ 'bg-blue-500 text-white': selectedValues.includes('value2'), 'bg-gray-200 text-gray-700': !selectedValues.includes('value2') }"
+        class="mx-1 my-1 px-4 py-2 rounded-full transition duration-300"
+        @click="toggleValue('value2')"
+      >
+        Concert
+      </button>
+      <button
+        x-bind:class="{ 'bg-blue-500 text-white': selectedValues.includes('value3'), 'bg-gray-200 text-gray-700': !selectedValues.includes('value3') }"
+        class="my-1 px-4 py-2 rounded-full transition duration-300 :hover:bg-blue-700"
+        @click="toggleValue('value3')"
+      >
+        Projection
+      </button>
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <h2>Selected Values</h2>
+    <pre x-text="JSON.stringify(selectedValues, null, 2)"></pre>
+  </div>
+
+  <script type="application/javascript">
+    function toggleValue(value) {
+      if (this.selectedValues.includes(value)) {
+        this.selectedValues = this.selectedValues.filter(v => v !== value);
+      } else {
+        this.selectedValues.push(value);
+      }
+    }
+  </script>
+</div>
