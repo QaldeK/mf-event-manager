@@ -1,5 +1,5 @@
 name = "worker-mf-event-manager"
-main = "build/index.mjs"
+main = "dist/index.mjs"
 compatibility_date = "2023-04-25"
 
 [vars]
