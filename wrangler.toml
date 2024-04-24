@@ -1,0 +1,19 @@
+name = "worker-mf-event-manager"
+main = "build/index.mjs"
+compatibility_date = "2023-04-25"
+
+[vars]
+DATABASE_URL="${SUPABASE_URL}"
+SUPABASE_KEY="${SUPABASE_KEY}"
+
+[mounts]
+source = "dist"
+static_base = "/"
+
+[[mounts.environment_variables]]
+  name = "DATABASE_URL"
+  value = "${DATABASE_URL}"
+
+[[mounts.environment_variables]]
+  name = "SUPABASE_KEY"
+  value = "${SUPABASE_KEY}"
